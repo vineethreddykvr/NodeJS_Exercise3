@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pie Chart</title>
+    <style>
+      canvas {
+        max-width: 400px; /* Set the desired maximum width */
+        max-height: 400px; /* Set the desired maximum height */
+        width: 100%;
+        height: auto;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels@1.1.0"></script>
+  </head>
+  <body>
+    <canvas id="pieChart"></canvas>
+    <script>
+
+
+    const dataset = [
+        { label: 'EDUCATION', value: 14 },
+        { label: 'WORKTIME', value: 30 },
+        { label: 'FAMILY', value: 16 },
+        { label: 'HEALTH', value: 10 },
+        { label: 'FINANCE', value: 18 },
+        { label: 'CAREER', value: 12 },
+      ];
+
+      const labels = dataset.map(data => data.label);
+      const values = dataset.map(data => data.value);
+
+      const ctx = document.getElementById('pieChart').getContext('2d');
+      const chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: values,
+            backgroundColor: [
+              'red',
+              'green',
+              'blue',
+              'yellow',
+              'orange',
+              'voilet'
+            ],
+          }],
+        },
+        options: {
+          plugins: {
+            legend: {
+              position: 'bottom',
+            },
+            tooltip: {
+              callbacks: {
+                label: (context) => {
+                  const label = labels[context.dataIndex];
+                  const value = values[context.dataIndex];
+                  return `${label}: ${value}`;
+                },
+              },
+            },
+            labels: {
+              render: 'percentage',
+              fontColor: 'white',
+              fontSize: 12,
+              fontStyle: 'bold',
+              position: 'outside',
+              textMargin: 8,
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
